@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Arzoo Jangra | Owner Admin Control Center</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Plus+Jakarta+Sans:wght@500;600;700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabaseClient.js"></script>
+  <style>
+    body { font-family: 'Plus Jakarta Sans', sans-serif; }
+    .font-royal { font-family: 'Cinzel', serif; }
+  </style>
+</head>
+<body class="bg-stone-100 text-stone-900 pb-16 antialiased">
+
+  <!-- PIN Screen -->
+  <div id="adminLockScreen" class="min-h-screen flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl p-6 sm:p-8 max-w-sm w-full border border-stone-200 shadow-2xl text-center space-y-4">
+      <div class="w-12 h-12 rounded-full bg-[#4a121a] text-[#d4af37] flex items-center justify-center mx-auto shadow-md">
+        <i data-lucide="lock" class="w-6 h-6"></i>
+      </div>
+      <div>
+        <h2 class="font-royal text-xl font-bold text-[#4a121a]">Arzoo Phone Portal</h2>
+        <p class="text-xs text-stone-500 mt-1">Upload designs from device gallery & manage live dates.</p>
+      </div>
+      <input type="password" id="adminPin" maxlength="6" placeholder="••••" class="w-full text-center text-2xl tracking-[0.5em] py-2.5 border rounded-xl focus:outline-none focus:border-[#4a121a]">
+      <button onclick="checkAdminPin()" class="w-full py-2.5 bg-[#4a121a] text-[#d4af37] font-bold rounded-xl text-xs uppercase tracking-wider shadow">
+        Unlock Dashboard
+      </button>
+      <a href="index.html" class="block text-xs text-stone-400 hover:text-stone-700">← Back to Client App</a>
+      <p class="text-[10px] text-stone-400">Default Passcode: 1212</p>
+    </div>
+  </div>
+
+  <!-- Authenticated Dashboard -->
+  <div id="adminDashboard" class="hidden max-w-xl mx-auto px-4 pt-6 space-y-6">
+    <header class="flex items-center justify-between pb-3 border-b border-stone-200">
+      <div>
+        <h1 class="font-royal text-lg font-bold text-[#4a121a]">Owner Control Center</h1>
+        <p class="text-[10px] text-stone-500">Live sync with Ellenabad (125102) System</p>
+      </div>
+      <a href="index.html" class="px-3 py-1 bg-stone-200 text-stone-700 rounded-lg text-xs font-semibold">
+        View Live App
+      </a>
+    </header>
+
+    <!-- SECTION 1: UPLOAD CERTIFICATE FROM PHONE GALLERY -->
+    <div class="bg-white p-5 rounded-3xl border border-stone-200 shadow-sm space-y-3">
+      <h3 class="font-bold text-sm text-[#4a121a] flex items-center gap-1.5">
+        <i data-lucide="award" class="w-4 h-4 text-[#8e6f15]"></i> Update Official Ellenabad Certificate
+      </h3>
+      <p class="text-xs text-stone-600">Select certificate photo from your phone gallery:</p>
+      <div class="space-y-2">
+        <input type="file" id="certFileInput" accept="image/*" class="w-full text-xs text-stone-500 file:mr-3 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-bold file:bg-[#4a121a] file:text-[#d4af37]">
+        <button onclick="saveCertFromDevice()" class="px-5 py-2 bg-[#4a121a] text-[#d4af37] font-bold rounded-xl text-xs uppercase tracking-wider shadow">
+          Upload Certificate Now
+        </button>
+      </div>
+    </div>
+
+    <!-- SECTION 2: ADD PHOTOS TO CATEGORY ALBUMS (DEVICE UPLOAD) -->
+    <div class="bg-white p-5 rounded-3xl border border-stone-200 shadow-sm space-y-3">
+      <h3 class="font-bold text-sm text-[#4a121a] flex items-center gap-1.5">
+        <i data-lucide="image-plus" class="w-4 h-4 text-[#8e6f15]"></i> Add Photos to Explore Albums
+      </h3>
+      <p class="text-xs text-stone-600">Kisi bhi category album mein device gallery se direct photos add karein:</p>
+      <form onsubmit="addPhotoToCategory(event)" class="space-y-3 text-xs">
+        <div>
+          <label class="block text-stone-600 mb-0.5">Select Category Album *</label>
+          <select id="albumCategorySelect" class="w-full p-2.5 border rounded-xl bg-white"></select>
+        </div>
+        <div>
+          <label class="block text-stone-600 mb-0.5">Photo Title (e.g. Bangles Arabic, Royal Dulha) *</label>
+          <input type="text" id="albumPhotoTitle" required placeholder="Design label..." class="w-full p-2.5 border rounded-xl">
+        </div>
+        <div>
+          <label class="block text-stone-600 mb-0.5">Choose Photo from Device Gallery *</label>
+          <input type="file" id="albumPhotoFile" accept="image/*" required class="w-full text-xs text-stone-500 file:mr-3 file:py-1.5 file:px-3 file:rounded-full file:border-0 file:text-xs file:font-bold file:bg-[#4a121a] file:text-[#d4af37]">
+        </div>
+        <button type="submit" class="w-full py-2.5 bg-[#4a121a] text-[#d4af37] font-bold rounded-xl text-xs uppercase tracking-wider shadow">
+          Upload to Album
+        </button>
+      </form>
+    </div>
+
+    <!-- SECTION 3: ADD NEW SERVICE -->
+    <div class="bg-white p-5 rounded-3xl border border-stone-200 shadow-sm space-y-3">
+      <h3 class="font-bold text-sm text-[#4a121a] flex items-center gap-1.5">
+        <i data-lucide="plus-circle" class="w-4 h-4 text-emerald-700"></i> Add New Mehndi Style (Both Hands)
+      </h3>
+      <form onsubmit="addNewServiceFromPhone(event)" class="space-y-3 text-xs">
+        <div>
+          <label class="block text-stone-600 mb-0.5">Service Title *</label>
+          <input type="text" id="servTitle" required placeholder="e.g. Engagement Floral Henna" class="w-full p-2.5 border rounded-xl">
+        </div>
+        <div>
+          <label class="block text-stone-600 mb-0.5">Tagline *</label>
+          <input type="text" id="servTagline" required placeholder="e.g. Minimalist wrist vines" class="w-full p-2.5 border rounded-xl">
+        </div>
+        <div>
+          <label class="block text-stone-600 mb-0.5">Pick 3:4 Portrait Photo from Gallery *</label>
+          <input type="file" id="servPhotoFile" accept="image/*" required class="w-full text-xs text-stone-500 file:mr-3 file:py-1.5 file:px-3 file:rounded-full file:border-0 file:text-xs file:font-bold file:bg-[#4a121a] file:text-[#d4af37]">
+        </div>
+
+        <div class="grid grid-cols-4 gap-2 pt-1">
+          <div>
+            <span class="block text-[10px] text-stone-500">Palm ₹</span>
+            <input type="number" id="servPalm" required value="400" class="w-full p-1.5 border rounded">
+          </div>
+          <div>
+            <span class="block text-[10px] text-stone-500">Bangles ₹</span>
+            <input type="number" id="servBangles" required value="500" class="w-full p-1.5 border rounded">
+          </div>
+          <div>
+            <span class="block text-[10px] text-stone-500">Mid ₹</span>
+            <input type="number" id="servMid" required value="600" class="w-full p-1.5 border rounded">
+          </div>
+          <div>
+            <span class="block text-[10px] text-stone-500">Elbow ₹</span>
+            <input type="number" id="servElbow" required value="800" class="w-full p-1.5 border rounded">
+          </div>
+        </div>
+
+        <button type="submit" class="w-full py-2.5 bg-emerald-700 text-white font-bold rounded-xl text-xs uppercase tracking-wider shadow">
+          Save & Publish to Client App
+        </button>
+      </form>
+    </div>
+
+    <!-- SECTION 4: MANAGE LIVE SERVICES & RATES -->
+    <div class="bg-white p-5 rounded-3xl border border-stone-200 shadow-sm space-y-3">
+      <h3 class="font-bold text-sm text-[#4a121a] flex items-center gap-1.5">
+        <i data-lucide="layers" class="w-4 h-4 text-[#8e6f15]"></i> Current Live Services & Rates
+      </h3>
+      <div id="adminServicesContainer" class="space-y-3"></div>
+    </div>
+
+    <!-- SECTION 5: BLOCK CALENDAR DATES -->
+    <div class="bg-white p-5 rounded-3xl border border-stone-200 shadow-sm space-y-3">
+      <h3 class="font-bold text-sm text-red-700 flex items-center gap-1.5">
+        <i data-lucide="calendar-x" class="w-4 h-4"></i> Block Busy / Booked Dates
+      </h3>
+      <div class="flex gap-2">
+        <input type="date" id="adminBlockDate" class="p-2 border rounded-xl text-xs flex-1">
+        <button onclick="blockDate()" class="px-4 py-2 bg-red-700 text-white font-bold rounded-xl text-xs">
+          Block Date
+        </button>
+      </div>
+      <div id="adminBlockedDatesGrid" class="flex flex-wrap gap-1.5 pt-1"></div>
+    </div>
+  </div>
+
+ <script>
+    const DEFAULT_SERVICES = [
+      { id: "serv-arabic", title: "Arabic Mehndi", tagline: "Flowing floral vines, shaded leaves & airy trails", prices: { palm: 300, bangles: 400, mid: 500, elbow: 600 }, is_bridal: false, img: "https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=600&q=80", examples: [{ title: "Arabic Palm Vine", img: "https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=800&q=80" }] },
+      { id: "serv-patch", title: "Patch Mehndi", tagline: "Modern circular mandalas & bold geometric checks", prices: { palm: 400, bangles: 500, mid: 600, elbow: 800 }, is_bridal: false, img: "https://images.unsplash.com/photo-1616683693504-3ea7e9ad6fec?auto=format&fit=crop&w=600&q=80", examples: [{ title: "Symmetric Mandala", img: "https://images.unsplash.com/photo-1616683693504-3ea7e9ad6fec?auto=format&fit=crop&w=800&q=80" }] },
+      { id: "serv-heavy", title: "Heavy Traditional", tagline: "Dense miniature fills, peacocks, jharokha jaal & elephants", prices: { palm: 500, bangles: 600, mid: 800, elbow: 1200 }, is_bridal: false, img: "https://images.unsplash.com/photo-1543163521-1bf539c55dd2?auto=format&fit=crop&w=600&q=80", examples: [{ title: "Heavy Jaal Arm", img: "https://images.unsplash.com/photo-1543163521-1bf539c55dd2?auto=format&fit=crop&w=800&q=80" }] },
+      { id: "serv-bridal", title: "Bridal Bespoke", tagline: "Signature full arms & feet with bride-groom portraits & vows", starting: 2000, note: "Customization charges addon according to groom portrait, barat & love story vows.", is_bridal: true, img: "https://images.unsplash.com/photo-1595085610896-fb31cfd5d4b7?auto=format&fit=crop&w=600&q=80", examples: [{ title: "Bridal Portrait Detailing", img: "https://images.unsplash.com/photo-1595085610896-fb31cfd5d4b7?auto=format&fit=crop&w=800&q=80" }] }
+    ];
+
+    let cachedServices = [];
+
+    async function checkAdminPin() {
+      const pin = document.getElementById('adminPin').value;
+      if (pin === "1212") {
+        document.getElementById('adminLockScreen').classList.add('hidden');
+        document.getElementById('adminDashboard').classList.remove('hidden');
+        await syncInitialDatabase();
+        await loadAdminServices();
+        await loadAdminBlocked();
+        lucide.createIcons();
+      } else {
+        alert("Incorrect PIN!");
+      }
+    }
+
+    // Seed database if empty
+    async function syncInitialDatabase() {
+      const { data, error } = await supabaseClient.from('services').select('id');
+      if (!error && (!data || data.length === 0)) {
+        for (const s of DEFAULT_SERVICES) {
+          await supabaseClient.from('services').insert(s);
+        }
+      }
+    }
+
+    // Save Certificate to Storage & Database
+    async function saveCertFromDevice() {
+      const f = document.getElementById('certFileInput').files[0];
+      if (!f) return alert("Select certificate photo from gallery!");
+
+      const publicUrl = await uploadMediaFile(f, "certificates");
+      if (!publicUrl) return;
+
+      const { error } = await supabaseClient
+        .from('site_settings')
+        .upsert({ key: 'certificate_url', value: publicUrl });
+
+      if (error) {
+        alert("Error saving certificate: " + error.message);
+      } else {
+        alert("Official certificate uploaded & synced with Supabase!");
+        document.getElementById('certFileInput').value = '';
+      }
+    }
+
+    // Load Services from Supabase
+    async function loadAdminServices() {
+      const container = document.getElementById('adminServicesContainer');
+      const select = document.getElementById('albumCategorySelect');
+      container.innerHTML = '<p class="text-xs text-stone-500">Loading live data from Supabase...</p>';
+
+      const { data, error } = await supabaseClient.from('services').select('*').order('created_at', { ascending: true });
+      if (error) {
+        console.error(error);
+        container.innerHTML = '<p class="text-xs text-red-600">Failed to load services.</p>';
+        return;
+      }
+
+      cachedServices = data || [];
+      container.innerHTML = '';
+      select.innerHTML = '';
+
+      cachedServices.forEach((s) => {
+        // Dropdown for album photos
+        const opt = document.createElement('option');
+        opt.value = s.id;
+        opt.innerText = s.title;
+        select.appendChild(opt);
+
+        // Service item
+        const item = document.createElement('div');
+        item.className = "p-3 rounded-2xl border border-stone-200 bg-stone-50 space-y-2 text-xs";
+        
+        let inputs = '';
+        if (s.is_bridal) {
+          inputs = `<div class="flex items-center gap-2"><span>Starting ₹:</span> <input type="number" id="adm-st-${s.id}" value="${s.starting}" class="p-1 border rounded-lg w-24 font-bold"></div>`;
+        } else {
+          inputs = `
+            <div class="grid grid-cols-4 gap-1 text-[11px]">
+              <div>Palm: <input type="number" id="adm-p-${s.id}" value="${s.prices?.palm || 300}" class="w-full p-1 border rounded-lg font-bold"></div>
+              <div>Bangles: <input type="number" id="adm-b-${s.id}" value="${s.prices?.bangles || 400}" class="w-full p-1 border rounded-lg font-bold"></div>
+              <div>Mid: <input type="number" id="adm-m-${s.id}" value="${s.prices?.mid || 500}" class="w-full p-1 border rounded-lg font-bold"></div>
+              <div>Elbow: <input type="number" id="adm-e-${s.id}" value="${s.prices?.elbow || 600}" class="w-full p-1 border rounded-lg font-bold"></div>
+            </div>
+          `;
+        }
+
+        item.innerHTML = `
+          <div class="flex justify-between items-center">
+            <strong class="text-[#4a121a]">${s.title}</strong>
+            <div class="flex gap-2">
+              <button onclick="updateServiceRates('${s.id}')" class="px-3 py-1 bg-[#4a121a] text-[#d4af37] font-bold rounded-lg text-xs">Save</button>
+              <button onclick="deleteServiceItem('${s.id}')" class="p-1 text-red-600"><i data-lucide="trash-2" class="w-4 h-4"></i></button>
+            </div>
+          </div>
+          ${inputs}
+        `;
+        container.appendChild(item);
+      });
+      lucide.createIcons();
+    }
+
+    // Update Live Rates in Supabase
+    async function updateServiceRates(id) {
+      const s = cachedServices.find(i => i.id === id);
+      if (!s) return;
+
+      let payload = {};
+      if (s.is_bridal) {
+        payload.starting = Number(document.getElementById(`adm-st-${id}`).value);
+      } else {
+        payload.prices = {
+          palm: Number(document.getElementById(`adm-p-${id}`).value),
+          bangles: Number(document.getElementById(`adm-b-${id}`).value),
+          mid: Number(document.getElementById(`adm-m-${id}`).value),
+          elbow: Number(document.getElementById(`adm-e-${id}`).value)
+        };
+      }
+
+      const { error } = await supabaseClient.from('services').update(payload).eq('id', id);
+      if (error) {
+        alert("Failed to update rates: " + error.message);
+      } else {
+        alert(`Live rates updated for ${s.title}!`);
+      }
+    }
+
+    // Delete Service
+    async function deleteServiceItem(id) {
+      if (confirm("Delete this service permanently from Supabase?")) {
+        const { error } = await supabaseClient.from('services').delete().eq('id', id);
+        if (error) alert(error.message);
+        else await loadAdminServices();
+      }
+    }
+
+    // Add Photo to Category Album
+    async function addPhotoToCategory(e) {
+      e.preventDefault();
+      const catId = document.getElementById('albumCategorySelect').value;
+      const title = document.getElementById('albumPhotoTitle').value;
+      const f = document.getElementById('albumPhotoFile').files[0];
+
+      const publicUrl = await uploadMediaFile(f, "gallery_albums");
+      if (!publicUrl) return;
+
+      const target = cachedServices.find(s => s.id === catId);
+      const updatedExamples = target.examples || [];
+      updatedExamples.push({ title, img: publicUrl });
+
+      const { error } = await supabaseClient
+        .from('services')
+        .update({ examples: updatedExamples })
+        .eq('id', catId);
+
+      if (error) {
+        alert("Error updating album: " + error.message);
+      } else {
+        alert(`Photo added to "${target.title}" album!`);
+        document.getElementById('albumPhotoTitle').value = '';
+        document.getElementById('albumPhotoFile').value = '';
+        await loadAdminServices();
+      }
+    }
+
+    // Add New Mehndi Service with Device Photo
+    async function addNewServiceFromPhone(e) {
+      e.preventDefault();
+      const title = document.getElementById('servTitle').value;
+      const tagline = document.getElementById('servTagline').value;
+      const f = document.getElementById('servPhotoFile').files[0];
+      const palm = Number(document.getElementById('servPalm').value);
+      const bangles = Number(document.getElementById('servBangles').value);
+      const mid = Number(document.getElementById('servMid').value);
+      const elbow = Number(document.getElementById('servElbow').value);
+
+      const publicUrl = await uploadMediaFile(f, "services");
+      if (!publicUrl) return;
+
+      const newId = "serv-" + Date.now();
+      const newService = {
+        id: newId,
+        title,
+        tagline,
+        img: publicUrl,
+        prices: { palm, bangles, mid, elbow },
+        is_bridal: false,
+        examples: [{ title, img: publicUrl }]
+      };
+
+      const { error } = await supabaseClient.from('services').insert(newService);
+      if (error) {
+        alert("Error creating service: " + error.message);
+      } else {
+        alert(`Service "${title}" added to database!`);
+        document.getElementById('servTitle').value = '';
+        document.getElementById('servTagline').value = '';
+        document.getElementById('servPhotoFile').value = '';
+        await loadAdminServices();
+      }
+    }
+
+    // Blocked Dates in Supabase
+    async function loadAdminBlocked() {
+      const container = document.getElementById('adminBlockedDatesGrid');
+      container.innerHTML = '<span class="text-xs text-stone-400">Loading dates...</span>';
+
+      const { data, error } = await supabaseClient.from('blocked_dates').select('*');
+      if (error) return;
+
+      container.innerHTML = '';
+      (data || []).forEach(d => {
+        const span = document.createElement('span');
+        span.className = "bg-red-100 text-red-800 px-2.5 py-1 rounded-full text-xs font-bold flex items-center gap-1.5";
+        span.innerHTML = `${d.date} <button onclick="unblockDate('${d.id}')" class="text-red-950 font-black">×</button>`;
+        container.appendChild(span);
+      });
+    }
+
+    async function blockDate() {
+      const d = document.getElementById('adminBlockDate').value;
+      if (!d) return alert("Select a date to block!");
+
+      const { error } = await supabaseClient.from('blocked_dates').insert({ date: d });
+      if (error) {
+        alert("Date already blocked or error: " + error.message);
+      } else {
+        document.getElementById('adminBlockDate').value = '';
+        await loadAdminBlocked();
+      }
+    }
+
+    async function unblockDate(id) {
+      const { error } = await supabaseClient.from('blocked_dates').delete().eq('id', id);
+      if (error) alert(error.message);
+      else await loadAdminBlocked();
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      lucide.createIcons();
+    });
+  </script>

@@ -1,0 +1,904 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Arzoo Jangra | #1 Luxury Henna Artist Ellenabad (125102)</title>
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Supabase JS CDN -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<!-- Supabase Helper File -->
+<script src="supabaseClient.js"></script>
+
+  <style>
+    body { font-family: 'Plus Jakarta Sans', sans-serif; }
+    .font-royal { font-family: 'Cinzel', serif; }
+    
+    .luxury-bg {
+      background: radial-gradient(circle at 50% 0%, #fff7eb 0%, #fffdf9 45%, #f7ede1 100%);
+    }
+
+    .royal-border {
+      border: 1px solid rgba(212, 175, 55, 0.45);
+      box-shadow: 0 10px 30px -10px rgba(74, 18, 26, 0.08);
+    }
+  </style>
+</head>
+<body class="luxury-bg text-stone-800 antialiased selection:bg-[#d4af37] selection:text-[#330b12] pb-24 min-h-screen">
+
+  <canvas id="particleCanvas" class="fixed inset-0 pointer-events-none z-0 w-full h-full"></canvas>
+
+  <!-- Sticky Top Header -->
+  <header class="sticky top-0 z-40 bg-[#FFFDF9]/95 backdrop-blur-md border-b border-[#d4af37]/30 shadow-sm px-4 py-3">
+    <div class="max-w-xl mx-auto flex items-center justify-between">
+      <div class="flex items-center gap-2.5">
+        <div class="w-10 h-10 rounded-full bg-[#4a121a] text-[#d4af37] border-2 border-[#d4af37] flex items-center justify-center font-royal font-bold text-sm shadow-md">
+          AJ
+        </div>
+        <div>
+          <h1 class="font-royal text-base font-bold text-[#4a121a] leading-none tracking-wide">ARZOO JANGRA</h1>
+          <span class="text-[9px] font-semibold text-[#8e6f15] tracking-widest uppercase">#1 Bridal Henna Artist • Ellenabad (125102)</span>
+        </div>
+      </div>
+      <a href="admin.html" class="p-2 rounded-full bg-amber-50 border border-[#d4af37]/40 text-[#4a121a] hover:scale-105 transition" title="Owner Admin Portal">
+        <i data-lucide="shield-check" class="w-4 h-4 text-[#8e6f15]"></i>
+      </a>
+    </div>
+  </header>
+
+  <!-- Main Viewport -->
+  <main class="relative z-10 max-w-xl mx-auto px-4 pt-4">
+
+    <!-- ==================== TAB 1: EXPLORE ==================== -->
+    <div id="tab-explore" class="tab-content space-y-6">
+      <div class="bg-gradient-to-br from-[#330b12] via-[#4a121a] to-[#26050b] text-white p-6 rounded-3xl border border-[#d4af37]/50 shadow-2xl space-y-3 relative overflow-hidden">
+        <span class="inline-block px-3 py-1 rounded-full bg-[#d4af37]/20 border border-[#d4af37]/40 text-[#f6e7b8] text-[10px] font-bold uppercase tracking-widest">
+          Ellenabad's Royal Legacy
+        </span>
+        <h2 class="font-royal text-2xl font-bold leading-snug">Handcrafted Bridal Elegance by Arzoo</h2>
+        <p class="text-xs text-stone-300 leading-relaxed">
+          Specializing in deep organic mahogany stains, custom bride-groom figure sketches, traditional Marwari jaal, and bespoke bridal vows for Ellenabad and Sirsa.
+        </p>
+        <div class="pt-2 flex items-center gap-3">
+          <button onclick="openCalendarModal()" class="px-4 py-2.5 rounded-full bg-[#d4af37] hover:bg-[#c29d2b] text-[#330b12] font-bold text-xs uppercase tracking-wider shadow-lg flex items-center gap-1.5 transition transform active:scale-95">
+            <i data-lucide="calendar" class="w-4 h-4"></i> Check Available Dates
+          </button>
+          <button onclick="switchTab('services')" class="px-4 py-2.5 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 text-white font-semibold text-xs transition">
+            View Menu
+          </button>
+        </div>
+      </div>
+
+      <!-- Verified #1 Certificate Card -->
+      <div class="bg-white p-4 rounded-3xl royal-border shadow-md space-y-3">
+        <div class="flex items-center justify-between">
+          <div>
+            <h3 class="font-royal font-bold text-sm text-[#4a121a]">Official Artist Credential</h3>
+            <p class="text-[10px] text-stone-500">Government & Municipal Acknowledged</p>
+          </div>
+          <span class="flex items-center gap-1 text-[10px] font-bold text-emerald-800 bg-emerald-50 px-2.5 py-1 rounded-full border border-emerald-200">
+            <i data-lucide="badge-check" class="w-3.5 h-3.5 text-emerald-600"></i> Verified #1 in Ellenabad
+          </span>
+        </div>
+        <div class="rounded-2xl overflow-hidden border border-stone-200 bg-stone-900 aspect-video relative flex items-center justify-center shadow-inner">
+          <img id="clientCertDisplay" src="https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=800&q=80" alt="Arzoo Certificate" class="w-full h-full object-cover">
+        </div>
+      </div>
+
+      <!-- Explore Collections Section -->
+      <div class="space-y-3">
+        <div>
+          <h3 class="font-royal font-bold text-base text-[#4a121a]">Explore Signature Collections</h3>
+          <p class="text-[11px] text-stone-500">Tap any category to view full high-res photo albums with zoom</p>
+        </div>
+        <div id="exploreCollectionGrid" class="grid grid-cols-2 gap-3.5"></div>
+      </div>
+    </div>
+
+    <!-- ==================== TAB 2: SERVICES (3:4 PORTRAIT CARDS) ==================== -->
+    <div id="tab-services" class="tab-content hidden space-y-4">
+      <div class="text-center space-y-1">
+        <span class="text-[10px] font-bold uppercase tracking-widest text-[#8e6f15]">Transparent Rates</span>
+        <h2 class="font-royal text-2xl font-bold text-[#4a121a]">Bridal & Designer Menu</h2>
+        <div class="inline-block px-3 py-1 bg-amber-50 border border-amber-300 rounded-full text-[11px] font-bold text-amber-900">
+          🌿 Rates are for BOTH HANDS (Dono Haath ke Rates)
+        </div>
+      </div>
+
+      <div id="clientServicesContainer" class="space-y-6"></div>
+    </div>
+
+    <!-- ==================== TAB 3: BOOKING & INVOICE SLIP ==================== -->
+    <div id="tab-booking" class="tab-content hidden space-y-5">
+      <div class="text-center space-y-1">
+        <span class="text-[10px] font-bold uppercase tracking-widest text-emerald-800">Instant Verification</span>
+        <h2 class="font-royal text-2xl font-bold text-[#4a121a]">Reserve Your Booking</h2>
+        <p class="text-xs text-stone-500">Choose date via our interactive calendar & view your invoice</p>
+      </div>
+
+      <form id="bookingFormMain" onsubmit="generateRoyalSlip(event)" class="bg-white p-5 rounded-3xl royal-border shadow-xl space-y-4 text-xs">
+        <div>
+          <label class="block font-bold text-stone-700 mb-1">Bride / Customer Full Name *</label>
+          <input type="text" id="custName" required placeholder="e.g. Pooja Sharma" class="w-full p-3 rounded-xl border border-stone-200 bg-stone-50 text-sm focus:outline-none focus:border-[#4a121a]">
+        </div>
+
+        <div>
+          <label class="block font-bold text-stone-700 mb-1">WhatsApp Mobile Number *</label>
+          <input type="tel" id="custPhone" required placeholder="e.g. 9812345678" class="w-full p-3 rounded-xl border border-stone-200 bg-stone-50 text-sm focus:outline-none focus:border-[#4a121a]">
+        </div>
+
+        <!-- Custom Calendar Trigger -->
+        <div>
+          <label class="block font-bold text-stone-700 mb-1">Event Date (Pick from Live Calendar) *</label>
+          <div onclick="openCalendarModal(true)" class="w-full p-3 rounded-xl border border-[#d4af37] bg-amber-50/50 flex items-center justify-between cursor-pointer">
+            <span id="selectedDateDisplay" class="font-semibold text-stone-700">Select Date from Calendar</span>
+            <i data-lucide="calendar" class="w-4 h-4 text-[#8e6f15]"></i>
+          </div>
+          <input type="hidden" id="custDate" required>
+        </div>
+
+        <div>
+          <label class="block font-bold text-stone-700 mb-1">Time Slot Preference *</label>
+          <select id="custSlot" class="w-full p-3 rounded-xl border border-stone-200 bg-stone-50 text-xs focus:outline-none focus:border-[#4a121a]">
+            <option>Morning (10:00 AM - 01:00 PM)</option>
+            <option>Afternoon (02:00 PM - 05:00 PM)</option>
+            <option>Evening (06:00 PM - 10:00 PM)</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block font-bold text-stone-700 mb-2">Select Mehndi Style *</label>
+          <div id="styleChipsContainer" class="grid grid-cols-2 gap-2"></div>
+        </div>
+
+        <div id="lengthChipsWrapper">
+          <label class="block font-bold text-stone-700 mb-2">Coverage Length (Both Hands) *</label>
+          <div class="grid grid-cols-2 gap-2">
+            <button type="button" onclick="selectLength('palm')" id="len-palm" class="len-btn p-2.5 rounded-xl border border-stone-200 bg-stone-50 font-semibold text-stone-700 text-center">Palm Length</button>
+            <button type="button" onclick="selectLength('bangles')" id="len-bangles" class="len-btn p-2.5 rounded-xl border border-[#d4af37] bg-[#4a121a] text-[#d4af37] font-bold text-center">Bangles Length</button>
+            <button type="button" onclick="selectLength('mid')" id="len-mid" class="len-btn p-2.5 rounded-xl border border-stone-200 bg-stone-50 font-semibold text-stone-700 text-center">Mid Length</button>
+            <button type="button" onclick="selectLength('elbow')" id="len-elbow" class="len-btn p-2.5 rounded-xl border border-stone-200 bg-stone-50 font-semibold text-stone-700 text-center">Elbow Length</button>
+          </div>
+        </div>
+
+        <div>
+          <label class="block font-bold text-stone-700 mb-1">Customization Vows / Portrait Requirements</label>
+          <textarea id="custNotes" rows="2" placeholder="e.g. Groom portrait on right palm, wedding hashtags or dulhan doli..." class="w-full p-3 rounded-xl border border-stone-200 bg-stone-50 focus:outline-none focus:border-[#4a121a]"></textarea>
+        </div>
+
+        <div class="p-4 rounded-2xl bg-[#FFF8E7] border border-[#d4af37] flex items-center justify-between">
+          <div>
+            <span class="text-[9px] uppercase font-bold text-[#8e6f15] block">Estimated Total (Both Hands)</span>
+            <span id="bookingLivePrice" class="font-royal text-2xl font-bold text-[#4a121a]">₹400</span>
+          </div>
+          <button type="submit" class="px-6 py-3 rounded-full bg-[#4a121a] hover:bg-[#380d13] text-[#d4af37] font-bold uppercase tracking-wider text-xs shadow-lg transition transform active:scale-95">
+            Generate Slip
+          </button>
+        </div>
+      </form>
+
+      <!-- Royal Digital Invoice Slip -->
+      <div id="royalSlipModal" class="hidden bg-white p-6 rounded-3xl border-2 border-[#d4af37] shadow-2xl space-y-4">
+        <div class="text-center pb-3 border-b border-dashed border-[#d4af37]/60 space-y-1">
+          <span class="text-[9px] tracking-widest text-[#8e6f15] font-bold uppercase">Official Booking Slip</span>
+          <h3 class="font-royal text-xl font-bold text-[#4a121a]">ARZOO JANGRA HENNA</h3>
+          <p class="text-[10px] text-stone-500">Ellenabad, Haryana - 125102 • Organic Bridal Specialist</p>
+        </div>
+
+        <div id="slipReceiptContent" class="space-y-1.5 text-xs text-stone-700"></div>
+
+        <div class="pt-3 border-t border-stone-200 flex gap-2">
+          <button onclick="window.print()" class="flex-1 py-2.5 rounded-xl bg-stone-100 font-bold text-stone-700 text-xs flex items-center justify-center gap-1">
+            <i data-lucide="printer" class="w-3.5 h-3.5"></i> Save Slip
+          </button>
+          <button onclick="confirmSlipToWhatsApp()" class="flex-1 py-2.5 rounded-xl bg-emerald-700 text-white font-bold text-xs flex items-center justify-center gap-1 shadow-lg">
+            <i data-lucide="send" class="w-3.5 h-3.5"></i> Send to WhatsApp
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== TAB 4: REVIEWS & STAIN UPLOAD ==================== -->
+    <div id="tab-reviews" class="tab-content hidden space-y-5">
+      <div class="text-center space-y-1">
+        <span class="text-[10px] font-bold uppercase tracking-widest text-[#8e6f15]">Ellenabad Community</span>
+        <h2 class="font-royal text-2xl font-bold text-[#4a121a]">Brides & Dark Stain Results</h2>
+        <p class="text-xs text-stone-500">Upload your stain photos directly from your phone gallery</p>
+      </div>
+
+      <div class="bg-white p-5 rounded-3xl royal-border shadow-md space-y-3.5 text-xs">
+        <h3 class="font-royal font-bold text-sm text-[#4a121a]">Leave Your Rating & Stain Picture</h3>
+        <form onsubmit="submitClientReview(event)" class="space-y-3">
+          <input type="text" id="revAuthor" required placeholder="Your Full Name" class="w-full p-2.5 rounded-xl border border-stone-200 bg-stone-50">
+          <input type="text" id="revArea" placeholder="Area / Colony (e.g. Ward No. 7, Ellenabad)" class="w-full p-2.5 rounded-xl border border-stone-200 bg-stone-50">
+
+          <div>
+            <label class="block text-stone-600 font-bold mb-1">Select Star Rating *</label>
+            <div id="starRatingSelector" class="flex gap-2 text-2xl text-stone-300 cursor-pointer">
+              <span onclick="setStars(1)">★</span>
+              <span onclick="setStars(2)">★</span>
+              <span onclick="setStars(3)">★</span>
+              <span onclick="setStars(4)">★</span>
+              <span onclick="setStars(5)">★</span>
+            </div>
+            <input type="hidden" id="revRatingValue" value="5">
+          </div>
+
+          <textarea id="revFeedback" required rows="2" placeholder="Write about Arzoo's work, cone quality, and stain result..." class="w-full p-2.5 rounded-xl border border-stone-200 bg-stone-50"></textarea>
+
+          <div>
+            <label class="block text-stone-600 font-bold mb-1">Upload Stain Photo (Direct from Gallery) 📷</label>
+            <input type="file" id="revPhotoInput" accept="image/*" class="w-full text-xs text-stone-500 file:mr-3 file:py-1.5 file:px-3 file:rounded-full file:border-0 file:text-xs file:font-bold file:bg-[#4a121a] file:text-[#d4af37]">
+          </div>
+
+          <button type="submit" class="w-full py-2.5 rounded-xl bg-[#4a121a] text-[#d4af37] font-bold uppercase tracking-wider text-xs shadow-md">
+            Publish Review
+          </button>
+        </form>
+      </div>
+
+      <div id="reviewsFeedContainer" class="space-y-3.5"></div>
+    </div>
+
+    <!-- ==================== TAB 5: BRIDAL VOWS & CUSTOM THEMES (REPLACED) ==================== -->
+    <div id="tab-custom" class="tab-content hidden space-y-5">
+      <div class="text-center space-y-1">
+        <span class="text-[10px] font-bold uppercase tracking-widest text-[#8e6f15]">Signature Customizations</span>
+        <h2 class="font-royal text-2xl font-bold text-[#4a121a]">Custom Bridal Themes</h2>
+        <p class="text-xs text-stone-500">Every bride has a unique love story — personalize your bridal henna</p>
+      </div>
+
+      <div class="grid grid-cols-1 gap-4 text-xs text-stone-700">
+        <!-- Theme 1 -->
+        <div class="p-4 rounded-3xl bg-white royal-border shadow-sm space-y-2">
+          <div class="flex items-center gap-2 font-bold text-[#4a121a] text-sm">
+            <i data-lucide="user-check" class="w-4 h-4 text-[#8e6f15]"></i>
+            Realistic Dulha-Dulhan Sketches
+          </div>
+          <p class="text-stone-600 leading-relaxed">
+            Personalized portrait figures of the bride and groom hand-drawn on palms with intricate shaded detailing, jewelry motifs, and sherwani textures.
+          </p>
+        </div>
+
+        <!-- Theme 2 -->
+        <div class="p-4 rounded-3xl bg-white royal-border shadow-sm space-y-2">
+          <div class="flex items-center gap-2 font-bold text-[#4a121a] text-sm">
+            <i data-lucide="feather" class="w-4 h-4 text-[#8e6f15]"></i>
+            Wedding Vows & Hashtaag Inscriptions
+          </div>
+          <p class="text-stone-600 leading-relaxed">
+            Inscribe your personalized wedding dates, couple hashtags, Sanskrit mantras ("सौभाग्यवती भव"), or memorable meeting milestones delicately woven into the arm bands.
+          </p>
+        </div>
+
+        <!-- Theme 3 -->
+        <div class="p-4 rounded-3xl bg-white royal-border shadow-sm space-y-2">
+          <div class="flex items-center gap-2 font-bold text-[#4a121a] text-sm">
+            <i data-lucide="heart-handshake" class="w-4 h-4 text-[#8e6f15]"></i>
+            Traditional Baraat & Doli Processions
+          </div>
+          <p class="text-stone-600 leading-relaxed">
+            Classic royal royal procession detailing featuring shehnai players, royal elephants, royal horses, and the auspicious bridal doli.
+          </p>
+        </div>
+
+        <div class="p-4 rounded-3xl bg-gradient-to-r from-[#4a121a] to-[#26050b] text-white space-y-2 border border-[#d4af37]/40 shadow-lg text-center">
+          <h4 class="font-royal font-bold text-base text-[#f6e7b8]">Dreaming of a Special Theme?</h4>
+          <p class="text-stone-300 leading-relaxed text-[11px]">
+            Arzoo crafts bespoke sketches based on your wedding outfit and references. Discuss your custom design directly!
+          </p>
+          <button onclick="switchTab('booking')" class="mt-2 px-5 py-2 rounded-full bg-[#d4af37] text-[#330b12] font-bold uppercase tracking-wider text-xs shadow">
+            Book Theme Consultation
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ==================== ANIMATED CALENDAR (PAST DATES DISABLED) ==================== -->
+  <div id="calendarModal" class="hidden fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-sm w-full p-5 royal-border shadow-2xl space-y-4">
+      <div class="flex items-center justify-between pb-2 border-b">
+        <h4 id="calendarMonthTitle" class="font-royal font-bold text-[#4a121a] text-sm">October 2026</h4>
+        <div class="flex gap-1">
+          <button onclick="prevMonth()" class="p-1 rounded bg-stone-100 hover:bg-stone-200"><i data-lucide="chevron-left" class="w-4 h-4"></i></button>
+          <button onclick="nextMonth()" class="p-1 rounded bg-stone-100 hover:bg-stone-200"><i data-lucide="chevron-right" class="w-4 h-4"></i></button>
+          <button onclick="closeCalendarModal()" class="p-1 rounded bg-stone-100 text-stone-500 hover:text-black ml-1"><i data-lucide="x" class="w-4 h-4"></i></button>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-7 text-center text-[10px] font-bold text-stone-400 uppercase">
+        <span>Su</span><span>Mo</span><span>Tu</span><span>We</span><span>Th</span><span>Fr</span><span>Sa</span>
+      </div>
+
+      <div id="calendarDaysGrid" class="grid grid-cols-7 gap-1 text-xs"></div>
+
+      <div class="pt-2 border-t flex justify-between text-[10px] text-stone-600 font-medium">
+        <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-emerald-600"></span> Available</span>
+        <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-red-600"></span> Busy</span>
+        <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-stone-300"></span> Past</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== CATEGORY GALLERY MODAL WITH HIGH-RES ZOOM ==================== -->
+  <div id="categoryGalleryModal" class="hidden fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex flex-col p-4 justify-between">
+    <div class="flex items-center justify-between text-white pb-3 border-b border-stone-800">
+      <div>
+        <h3 id="catModalTitle" class="font-royal font-bold text-base text-[#d4af37]">Collection Title</h3>
+        <p class="text-[10px] text-stone-400">Tap any photo to zoom in full screen & download</p>
+      </div>
+      <button onclick="closeCategoryGallery()" class="p-1.5 rounded-full bg-white/10 text-white hover:bg-white/20">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+    </div>
+
+    <div id="catModalGrid" class="overflow-y-auto max-h-[75vh] grid grid-cols-2 gap-3 py-3"></div>
+
+    <button onclick="bookSelectedCategory()" class="w-full py-3 rounded-full bg-[#d4af37] text-[#330b12] font-bold uppercase tracking-wider text-xs shadow-xl">
+      Book This Category
+    </button>
+  </div>
+
+  <!-- ==================== FULLSCREEN ZOOM & DOWNLOAD LIGHTBOX ==================== -->
+  <div id="zoomLightboxModal" class="hidden fixed inset-0 z-50 bg-black/95 backdrop-blur-md flex flex-col justify-between p-4">
+    <div class="flex items-center justify-between text-white pb-2 border-b border-stone-800">
+      <span id="zoomTitle" class="font-royal text-sm text-[#d4af37]">Design Detail</span>
+      <div class="flex items-center gap-3">
+        <button onclick="zoomAdjust(0.2)" class="p-1.5 rounded bg-white/10 text-white text-xs font-bold" title="Zoom In">+</button>
+        <button onclick="zoomAdjust(-0.2)" class="p-1.5 rounded bg-white/10 text-white text-xs font-bold" title="Zoom Out">-</button>
+        <a id="zoomDownloadBtn" href="#" download="arzoo-mehndi-design.jpg" class="p-1.5 rounded bg-[#d4af37] text-[#330b12] text-xs font-bold flex items-center gap-1">
+          <i data-lucide="download" class="w-3.5 h-3.5"></i> Download
+        </a>
+        <button onclick="closeZoomLightbox()" class="p-1.5 rounded bg-white/20 text-white">
+          <i data-lucide="x" class="w-4 h-4"></i>
+        </button>
+      </div>
+    </div>
+
+    <div class="flex-1 overflow-auto flex items-center justify-center p-2">
+      <img id="zoomImageDisplay" src="" alt="Zoom preview" class="max-w-full max-h-[70vh] object-contain transition-transform duration-300" style="transform: scale(1);">
+    </div>
+
+    <div class="text-center text-[11px] text-stone-400 pt-2">
+      Pinch or tap + / - to zoom. Save reference for Arzoo during booking.
+    </div>
+  </div>
+
+  <!-- ==================== BOTTOM TAB BAR ==================== -->
+  <nav class="fixed bottom-0 inset-x-0 bg-white/95 backdrop-blur-md border-t border-stone-200 z-50 py-2 shadow-2xl">
+    <div class="max-w-xl mx-auto grid grid-cols-5 text-center">
+      <button onclick="switchTab('explore')" id="btn-explore" class="tab-btn flex flex-col items-center gap-0.5 text-[#4a121a]">
+        <i data-lucide="compass" class="w-5 h-5"></i>
+        <span class="text-[10px] font-bold">Explore</span>
+      </button>
+      <button onclick="switchTab('services')" id="btn-services" class="tab-btn flex flex-col items-center gap-0.5 text-stone-400">
+        <i data-lucide="palette" class="w-5 h-5"></i>
+        <span class="text-[10px] font-bold">Services</span>
+      </button>
+      <button onclick="switchTab('booking')" id="btn-booking" class="tab-btn flex flex-col items-center gap-0.5 text-stone-400 relative">
+        <div class="w-9 h-9 -mt-4 bg-[#4a121a] text-[#d4af37] border-2 border-white rounded-full flex items-center justify-center shadow-lg">
+          <i data-lucide="calendar" class="w-4 h-4"></i>
+        </div>
+        <span class="text-[10px] font-bold">Book</span>
+      </button>
+      <button onclick="switchTab('reviews')" id="btn-reviews" class="tab-btn flex flex-col items-center gap-0.5 text-stone-400">
+        <i data-lucide="star" class="w-5 h-5"></i>
+        <span class="text-[10px] font-bold">Reviews</span>
+      </button>
+      <button onclick="switchTab('custom')" id="btn-custom" class="tab-btn flex flex-col items-center gap-0.5 text-stone-400">
+        <i data-lucide="heart-handshake" class="w-5 h-5"></i>
+        <span class="text-[10px] font-bold">Themes</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- JavaScript Client Core -->
+  <script>
+    let liveServices = [];
+    let liveBlockedDates = [];
+    let currentSelectedStyle = "";
+    let currentSelectedLength = "bangles";
+    let isCalendarForBooking = false;
+    let viewingCategoryObj = null;
+    let currentZoomScale = 1;
+
+    // Fetch initial cloud data from Supabase
+    async function fetchSupabaseData() {
+      // 1. Fetch Certificate
+      const { data: certData } = await supabaseClient
+        .from('site_settings')
+        .select('value')
+        .eq('key', 'certificate_url')
+        .single();
+      if (certData && certData.value) {
+        document.getElementById('clientCertDisplay').src = certData.value;
+      }
+
+      // 2. Fetch Services
+      const { data: servicesData } = await supabaseClient
+        .from('services')
+        .select('*')
+        .order('created_at', { ascending: true });
+      if (servicesData && servicesData.length > 0) {
+        liveServices = servicesData;
+        renderExploreCollections();
+        renderServicesList();
+        renderStyleChips();
+      }
+
+      // 3. Fetch Blocked Dates
+      const { data: blockedData } = await supabaseClient
+        .from('blocked_dates')
+        .select('date');
+      liveBlockedDates = (blockedData || []).map(b => b.date);
+
+      // 4. Fetch Reviews
+      await renderReviewsFeed();
+    }
+
+    function switchTab(t) {
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+      document.getElementById(`tab-${t}`).classList.remove('hidden');
+
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.remove('text-[#4a121a]');
+        btn.classList.add('text-stone-400');
+      });
+      document.getElementById(`btn-${t}`).classList.remove('text-stone-400');
+      document.getElementById(`btn-${t}`).classList.add('text-[#4a121a]');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Render Collections (Tab 1)
+    function renderExploreCollections() {
+      const grid = document.getElementById('exploreCollectionGrid');
+      grid.innerHTML = '';
+
+      liveServices.forEach(s => {
+        const item = document.createElement('div');
+        item.className = 'group rounded-2xl overflow-hidden aspect-[4/5] bg-stone-900 border border-stone-200 relative cursor-pointer shadow-md';
+        item.onclick = () => openCategoryGallery(s);
+        item.innerHTML = `
+          <img src="${s.img}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+          <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent flex flex-col justify-end p-3 text-white">
+            <span class="text-[9px] uppercase tracking-wider text-[#d4af37] font-bold">${s.is_bridal ? 'Signature' : 'Length Collection'}</span>
+            <h4 class="font-royal font-bold text-sm leading-tight">${s.title}</h4>
+            <span class="text-[10px] text-stone-300 flex items-center gap-1 mt-0.5">Explore Designs →</span>
+          </div>
+        `;
+        grid.appendChild(item);
+      });
+    }
+
+    function openCategoryGallery(cat) {
+      viewingCategoryObj = cat;
+      document.getElementById('catModalTitle').innerText = `${cat.title} Album`;
+      const grid = document.getElementById('catModalGrid');
+      grid.innerHTML = '';
+
+      const list = (cat.examples && cat.examples.length > 0) ? cat.examples : [{ title: cat.title, img: cat.img }];
+      list.forEach(ex => {
+        const d = document.createElement('div');
+        d.className = 'rounded-2xl overflow-hidden aspect-[3/4] bg-stone-900 border border-stone-700 relative cursor-pointer shadow group';
+        d.onclick = () => openZoomLightbox(ex.img, ex.title);
+        d.innerHTML = `
+          <img src="${ex.img}" class="w-full h-full object-cover group-hover:scale-105 transition">
+          <div class="absolute bottom-0 inset-x-0 p-2 bg-black/75 text-white text-[10px] font-bold text-center flex items-center justify-between px-2">
+            <span class="truncate">${ex.title}</span>
+            <i data-lucide="zoom-in" class="w-3.5 h-3.5 text-[#d4af37]"></i>
+          </div>
+        `;
+        grid.appendChild(d);
+      });
+
+      document.getElementById('categoryGalleryModal').classList.remove('hidden');
+      lucide.createIcons();
+    }
+
+    function closeCategoryGallery() {
+      document.getElementById('categoryGalleryModal').classList.add('hidden');
+    }
+
+    function bookSelectedCategory() {
+      closeCategoryGallery();
+      if (viewingCategoryObj) {
+        selectStyle(viewingCategoryObj.id);
+        switchTab('booking');
+      }
+    }
+
+    // Zoom Lightbox
+    function openZoomLightbox(imgSrc, title) {
+      currentZoomScale = 1;
+      const modal = document.getElementById('zoomLightboxModal');
+      const img = document.getElementById('zoomImageDisplay');
+      img.src = imgSrc;
+      img.style.transform = `scale(1)`;
+      document.getElementById('zoomTitle').innerText = title;
+      document.getElementById('zoomDownloadBtn').href = imgSrc;
+      modal.classList.remove('hidden');
+    }
+
+    function closeZoomLightbox() {
+      document.getElementById('zoomLightboxModal').classList.add('hidden');
+    }
+
+    function zoomAdjust(delta) {
+      currentZoomScale = Math.max(0.6, Math.min(3, currentZoomScale + delta));
+      document.getElementById('zoomImageDisplay').style.transform = `scale(${currentZoomScale})`;
+    }
+
+    // Services Tab (Tab 2)
+    function renderServicesList() {
+      const container = document.getElementById('clientServicesContainer');
+      container.innerHTML = '';
+
+      liveServices.forEach(s => {
+        const card = document.createElement('div');
+        card.className = 'bg-white rounded-3xl overflow-hidden royal-border shadow-lg flex flex-col';
+
+        let pricingGrid = '';
+        if (s.is_bridal) {
+          pricingGrid = `
+            <div class="p-3.5 bg-amber-50 rounded-2xl border border-amber-200 space-y-1">
+              <div class="font-bold text-[#4a121a] text-sm">Starting @ ₹${s.starting} (Both Hands)</div>
+              <p class="text-[11px] text-amber-900 leading-tight italic">*${s.note}</p>
+            </div>
+          `;
+        } else {
+          pricingGrid = `
+            <div class="grid grid-cols-2 gap-2 text-xs">
+              <div class="p-2 bg-stone-50 rounded-xl border border-stone-200 flex justify-between"><span>Palm:</span> <strong class="text-[#4a121a]">₹${s.prices?.palm || 300}</strong></div>
+              <div class="p-2 bg-stone-50 rounded-xl border border-stone-200 flex justify-between"><span>Bangles:</span> <strong class="text-[#4a121a]">₹${s.prices?.bangles || 400}</strong></div>
+              <div class="p-2 bg-stone-50 rounded-xl border border-stone-200 flex justify-between"><span>Mid:</span> <strong class="text-[#4a121a]">₹${s.prices?.mid || 500}</strong></div>
+              <div class="p-2 bg-stone-50 rounded-xl border border-stone-200 flex justify-between"><span>Elbow:</span> <strong class="text-[#4a121a]">₹${s.prices?.elbow || 600}</strong></div>
+            </div>
+          `;
+        }
+
+        card.innerHTML = `
+          <div class="w-full aspect-[3/4] bg-stone-900 relative overflow-hidden">
+            <img src="${s.img}" alt="${s.title}" class="w-full h-full object-cover">
+            <div class="absolute top-3 left-3 px-3 py-1 rounded-full bg-black/60 text-[#d4af37] text-[10px] font-bold uppercase tracking-wider backdrop-blur-md">
+              Both Hands Rate
+            </div>
+          </div>
+          <div class="p-5 space-y-3">
+            <div>
+              <h3 class="font-royal font-bold text-lg text-[#4a121a]">${s.title}</h3>
+              <p class="text-xs text-stone-500 mt-0.5">${s.tagline}</p>
+            </div>
+            ${pricingGrid}
+            <button onclick="selectServiceForBooking('${s.id}')" class="w-full py-3 rounded-full bg-[#4a121a] hover:bg-[#380d13] text-[#d4af37] font-bold text-xs uppercase tracking-wider shadow-lg flex items-center justify-center gap-2">
+              <i data-lucide="calendar" class="w-4 h-4 text-[#d4af37]"></i>
+              <span>Book This Design</span>
+            </button>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+      lucide.createIcons();
+    }
+
+    function selectServiceForBooking(id) {
+      selectStyle(id);
+      switchTab('booking');
+    }
+
+    // Booking Tab Chips (Tab 3)
+    function renderStyleChips() {
+      const container = document.getElementById('styleChipsContainer');
+      container.innerHTML = '';
+
+      liveServices.forEach((s, idx) => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.id = `style-chip-${s.id}`;
+        btn.onclick = () => selectStyle(s.id);
+        btn.className = `p-3 rounded-xl border text-left text-xs font-bold transition ${
+          (idx === 0) ? 'border-[#d4af37] bg-[#4a121a] text-[#d4af37]' : 'border-stone-200 bg-stone-50 text-stone-700'
+        }`;
+        btn.innerHTML = `<div>${s.title}</div><div class="text-[10px] opacity-80 font-normal">${s.is_bridal ? 'Starting ₹2000' : 'From ₹' + (s.prices?.palm || 300)}</div>`;
+        container.appendChild(btn);
+      });
+      if (liveServices.length > 0) {
+        currentSelectedStyle = liveServices[0].id;
+        calculateBookingEstimate();
+      }
+    }
+
+    function selectStyle(id) {
+      currentSelectedStyle = id;
+      liveServices.forEach(s => {
+        const el = document.getElementById(`style-chip-${s.id}`);
+        if (!el) return;
+        if (s.id === id) {
+          el.className = 'p-3 rounded-xl border text-left text-xs font-bold border-[#d4af37] bg-[#4a121a] text-[#d4af37]';
+        } else {
+          el.className = 'p-3 rounded-xl border text-left text-xs font-bold border-stone-200 bg-stone-50 text-stone-700';
+        }
+      });
+
+      const chosen = liveServices.find(s => s.id === id);
+      const lWrapper = document.getElementById('lengthChipsWrapper');
+      if (chosen && chosen.is_bridal) {
+        lWrapper.classList.add('hidden');
+      } else {
+        lWrapper.classList.remove('hidden');
+      }
+      calculateBookingEstimate();
+    }
+
+    function selectLength(l) {
+      currentSelectedLength = l;
+      ['palm', 'bangles', 'mid', 'elbow'].forEach(len => {
+        const btn = document.getElementById(`len-${len}`);
+        if (len === l) {
+          btn.className = 'len-btn p-2.5 rounded-xl border border-[#d4af37] bg-[#4a121a] text-[#d4af37] font-bold text-center';
+        } else {
+          btn.className = 'len-btn p-2.5 rounded-xl border border-stone-200 bg-stone-50 font-semibold text-stone-700 text-center';
+        }
+      });
+      calculateBookingEstimate();
+    }
+
+    function calculateBookingEstimate() {
+      const s = liveServices.find(i => i.id === currentSelectedStyle) || liveServices[0];
+      const display = document.getElementById('bookingLivePrice');
+      if (!s) return;
+
+      if (s.is_bridal) {
+        display.innerText = `₹${s.starting}+ Starting`;
+      } else {
+        const cost = (s.prices && s.prices[currentSelectedLength]) ? s.prices[currentSelectedLength] : 400;
+        display.innerText = `₹${cost}`;
+      }
+    }
+
+    // Calendar Picker with Real-time Blocked Dates
+    const todayObj = new Date();
+    let calYear = todayObj.getFullYear();
+    let calMonth = todayObj.getMonth();
+
+    function openCalendarModal(forBooking = false) {
+      isCalendarForBooking = forBooking;
+      document.getElementById('calendarModal').classList.remove('hidden');
+      renderCalendar();
+    }
+
+    function closeCalendarModal() {
+      document.getElementById('calendarModal').classList.add('hidden');
+    }
+
+    function prevMonth() {
+      calMonth--;
+      if (calMonth < 0) { calMonth = 11; calYear--; }
+      renderCalendar();
+    }
+
+    function nextMonth() {
+      calMonth++;
+      if (calMonth > 11) { calMonth = 0; calYear++; }
+      renderCalendar();
+    }
+
+    function renderCalendar() {
+      const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+      document.getElementById('calendarMonthTitle').innerText = `${monthNames[calMonth]} ${calYear}`;
+
+      const grid = document.getElementById('calendarDaysGrid');
+      grid.innerHTML = '';
+
+      const firstDay = new Date(calYear, calMonth, 1).getDay();
+      const totalDays = new Date(calYear, calMonth + 1, 0).getDate();
+      
+      const now = new Date();
+      now.setHours(0, 0, 0, 0);
+
+      for (let i = 0; i < firstDay; i++) {
+        grid.appendChild(document.createElement('div'));
+      }
+
+      for (let day = 1; day <= totalDays; day++) {
+        const mStr = String(calMonth + 1).padStart(2, '0');
+        const dStr = String(day).padStart(2, '0');
+        const fullDate = `${calYear}-${mStr}-${dStr}`;
+        const dayDate = new Date(calYear, calMonth, day);
+        dayDate.setHours(0, 0, 0, 0);
+
+        const isPast = dayDate < now;
+        const isBusy = liveBlockedDates.includes(fullDate);
+
+        const dayBtn = document.createElement('button');
+        dayBtn.type = 'button';
+
+        if (isPast) {
+          dayBtn.className = 'h-10 rounded-xl font-bold flex flex-col items-center justify-center bg-stone-100 text-stone-300 line-through cursor-not-allowed';
+          dayBtn.innerHTML = `<span>${day}</span><span class="text-[7px]">Past</span>`;
+        } else if (isBusy) {
+          dayBtn.className = 'h-10 rounded-xl font-bold flex flex-col items-center justify-center bg-red-100 text-red-700 line-through cursor-not-allowed border border-red-300';
+          dayBtn.innerHTML = `<span>${day}</span><span class="text-[7px]">Busy</span>`;
+          dayBtn.onclick = () => alert(`ARZOO IS BUSY, SORRY ! This date (${fullDate}) is already booked.`);
+        } else {
+          dayBtn.className = 'h-10 rounded-xl font-bold flex flex-col items-center justify-center bg-emerald-50 text-emerald-900 border border-emerald-200 hover:bg-[#d4af37] hover:text-[#330b12]';
+          dayBtn.innerHTML = `<span>${day}</span><span class="text-[7px]">Open</span>`;
+          dayBtn.onclick = () => {
+            document.getElementById('selectedDateDisplay').innerText = `Selected: ${fullDate}`;
+            document.getElementById('custDate').value = fullDate;
+            closeCalendarModal();
+          };
+        }
+
+        grid.appendChild(dayBtn);
+      }
+    }
+
+    // Slip Generation
+    let activeSlipData = null;
+    function generateRoyalSlip(e) {
+      e.preventDefault();
+      const dateVal = document.getElementById('custDate').value;
+      if (!dateVal) {
+        alert("Please pick an open date from the live calendar!");
+        openCalendarModal(true);
+        return;
+      }
+
+      const name = document.getElementById('custName').value;
+      const phone = document.getElementById('custPhone').value;
+      const slot = document.getElementById('custSlot').value;
+      const notes = document.getElementById('custNotes').value;
+      const s = liveServices.find(i => i.id === currentSelectedStyle);
+      const amount = document.getElementById('bookingLivePrice').innerText;
+      const slipNumber = 'AJ-' + Math.floor(100000 + Math.random() * 900000);
+
+      activeSlipData = { slipNumber, name, phone, dateVal, slot, service: s.title, coverage: s.is_bridal ? 'Full Arms Bridal' : currentSelectedLength.toUpperCase(), amount, notes };
+
+      document.getElementById('slipReceiptContent').innerHTML = `
+        <div class="flex justify-between"><span>Slip ID:</span> <strong class="text-[#4a121a]">${slipNumber}</strong></div>
+        <div class="flex justify-between"><span>Client Name:</span> <strong>${name}</strong></div>
+        <div class="flex justify-between"><span>WhatsApp Phone:</span> <strong>${phone}</strong></div>
+        <div class="flex justify-between"><span>Event Date:</span> <strong>${dateVal}</strong></div>
+        <div class="flex justify-between"><span>Preferred Window:</span> <strong>${slot}</strong></div>
+        <div class="flex justify-between"><span>Mehndi Category:</span> <strong>${s.title}</strong></div>
+        <div class="flex justify-between"><span>Arm Coverage:</span> <strong>${activeSlipData.coverage}</strong></div>
+        <div class="flex justify-between text-sm font-bold text-[#4a121a] pt-2 border-t">
+          <span>Estimated Total (Both Hands):</span>
+          <strong>${amount}</strong>
+        </div>
+      `;
+
+      const slipBox = document.getElementById('royalSlipModal');
+      slipBox.classList.remove('hidden');
+      slipBox.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function confirmSlipToWhatsApp() {
+      if (!activeSlipData) return;
+      const msg = `*OFFICIAL MEHNDI BOOKING SLIP - ARZOO JANGRA (125102)*%0A------------------------------------%0A*Slip ID:* ${activeSlipData.slipNumber}%0A*Bride Name:* ${activeSlipData.name}%0A*Phone:* ${activeSlipData.phone}%0A*Date:* ${activeSlipData.dateVal}%0A*Slot:* ${activeSlipData.slot}%0A*Style:* ${activeSlipData.service}%0A*Coverage:* ${activeSlipData.coverage}%0A*Total (Both Hands):* ${activeSlipData.amount}%0A*Notes:* ${activeSlipData.notes || 'None'}%0A------------------------------------%0APlease confirm my booking Arzoo ji!`;
+      window.open(`https://wa.me/919876543210?text=${msg}`, '_blank');
+    }
+
+    // Reviews from Supabase
+    function setStars(val) {
+      document.getElementById('revRatingValue').value = val;
+      const spans = document.getElementById('starRatingSelector').children;
+      for (let i = 0; i < 5; i++) {
+        spans[i].className = i < val ? 'text-amber-500' : 'text-stone-300';
+      }
+    }
+
+    async function renderReviewsFeed() {
+      const container = document.getElementById('reviewsFeedContainer');
+      container.innerHTML = '<p class="text-xs text-stone-400">Loading verified reviews...</p>';
+
+      const { data, error } = await supabaseClient
+        .from('reviews')
+        .select('*')
+        .order('created_at', { ascending: false });
+
+      if (error || !data || data.length === 0) {
+        container.innerHTML = '<p class="text-xs text-stone-500 italic">No reviews yet. Be the first to share your experience!</p>';
+        return;
+      }
+
+      container.innerHTML = '';
+      data.forEach(r => {
+        const item = document.createElement('div');
+        item.className = 'p-4 rounded-2xl bg-white royal-border shadow-sm space-y-2 text-xs';
+        item.innerHTML = `
+          <div class="flex items-center justify-between">
+            <strong class="text-stone-800">${r.name} <span class="text-[10px] text-stone-400 font-normal">(${r.area || 'Ellenabad'})</span></strong>
+            <span class="text-amber-500 font-bold">${'★'.repeat(r.stars)}</span>
+          </div>
+          <p class="text-stone-700 leading-relaxed italic">"${r.feedback}"</p>
+          ${r.photo ? `<div class="rounded-xl overflow-hidden aspect-video bg-stone-100 max-h-48 border border-stone-200 mt-2"><img src="${r.photo}" class="w-full h-full object-cover"></div>` : ''}
+        `;
+        container.appendChild(item);
+      });
+    }
+
+    async function submitClientReview(e) {
+      e.preventDefault();
+      const name = document.getElementById('revAuthor').value;
+      const area = document.getElementById('revArea').value;
+      const stars = Number(document.getElementById('revRatingValue').value);
+      const feedback = document.getElementById('revFeedback').value;
+      const photoFile = document.getElementById('revPhotoInput').files[0];
+
+      let photoUrl = null;
+      if (photoFile) {
+        photoUrl = await uploadMediaFile(photoFile, "reviews_stains");
+      }
+
+      const { error } = await supabaseClient.from('reviews').insert({
+        name,
+        area,
+        stars,
+        feedback,
+        photo: photoUrl
+      });
+
+      if (error) {
+        alert("Error submitting review: " + error.message);
+      } else {
+        alert('Thank you! Your verified review has been published.');
+        document.getElementById('revAuthor').value = '';
+        document.getElementById('revArea').value = '';
+        document.getElementById('revFeedback').value = '';
+        document.getElementById('revPhotoInput').value = '';
+        await renderReviewsFeed();
+      }
+    }
+
+    // Sparkles
+    const canvas = document.getElementById('particleCanvas');
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+    function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    class Particle {
+      constructor() { this.reset(); }
+      reset() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.size = Math.random() * 2 + 0.8;
+        this.speedY = Math.random() * 0.35 + 0.1;
+        this.speedX = (Math.random() - 0.5) * 0.3;
+        this.opacity = Math.random() * 0.4 + 0.15;
+      }
+      update() {
+        this.y -= this.speedY;
+        this.x += this.speedX;
+        if (this.y < 0) this.reset();
+      }
+      draw() {
+        ctx.fillStyle = `rgba(212, 175, 55, ${this.opacity})`;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+    for (let i = 0; i < 35; i++) particles.push(new Particle());
+    function animateParticles() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      particles.forEach(p => { p.update(); p.draw(); });
+      requestAnimationFrame(animateParticles);
+    }
+
+    window.addEventListener('DOMContentLoaded', async () => {
+      setStars(5);
+      animateParticles();
+      lucide.createIcons();
+      await fetchSupabaseData();
+    });
+  </script>
