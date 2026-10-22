@@ -10,10 +10,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/lucide@latest"></script>
-  <!-- Supabase JS CDN -->
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<!-- Supabase Helper File -->
-<script src="supabaseClient.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabaseClient.js"></script>
 
   <style>
     body { font-family: 'Plus Jakarta Sans', sans-serif; }
@@ -56,9 +54,11 @@
 
     <!-- ==================== TAB 1: EXPLORE ==================== -->
     <div id="tab-explore" class="tab-content space-y-6">
+      
+      <!-- Bio Hero Banner -->
       <div class="bg-gradient-to-br from-[#330b12] via-[#4a121a] to-[#26050b] text-white p-6 rounded-3xl border border-[#d4af37]/50 shadow-2xl space-y-3 relative overflow-hidden">
         <span class="inline-block px-3 py-1 rounded-full bg-[#d4af37]/20 border border-[#d4af37]/40 text-[#f6e7b8] text-[10px] font-bold uppercase tracking-widest">
-          Ellenabad's Royal Legacy
+          Ellenabad's Pride
         </span>
         <h2 class="font-royal text-2xl font-bold leading-snug">Handcrafted Bridal Elegance by Arzoo</h2>
         <p class="text-xs text-stone-300 leading-relaxed">
@@ -74,33 +74,52 @@
         </div>
       </div>
 
-      <!-- Verified #1 Certificate Card -->
-      <div class="bg-white p-4 rounded-3xl royal-border shadow-md space-y-3">
-        <div class="flex items-center justify-between">
-          <div>
-            <h3 class="font-royal font-bold text-sm text-[#4a121a]">Official Artist Credential</h3>
-            <p class="text-[10px] text-stone-500">Government & Municipal Acknowledged</p>
+      <!-- ROYAL BADGE CARD (Replaced Certificate) -->
+      <div class="bg-gradient-to-br from-amber-50 via-white to-amber-50/40 p-5 rounded-3xl royal-border shadow-md space-y-4">
+        <div class="flex items-center gap-3.5">
+          <div class="w-12 h-12 rounded-2xl bg-[#4a121a] text-[#d4af37] border-2 border-[#d4af37] flex items-center justify-center font-bold text-xl shadow-md shrink-0">
+            👑
           </div>
-          <span class="flex items-center gap-1 text-[10px] font-bold text-emerald-800 bg-emerald-50 px-2.5 py-1 rounded-full border border-emerald-200">
-            <i data-lucide="badge-check" class="w-3.5 h-3.5 text-emerald-600"></i> Verified #1 in Ellenabad
-          </span>
+          <div>
+            <span class="text-[10px] font-bold uppercase tracking-widest text-[#8e6f15]">Official Recognition</span>
+            <h3 class="font-royal text-lg font-bold text-[#4a121a] leading-tight">Ellenabad's #1 Mehndi Artist</h3>
+            <p class="text-[11px] text-stone-600">Pincode 125102 & Sirsa Belt's Most Trusted</p>
+          </div>
         </div>
-        <div class="rounded-2xl overflow-hidden border border-stone-200 bg-stone-900 aspect-video relative flex items-center justify-center shadow-inner">
-          <img id="clientCertDisplay" src="https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=800&q=80" alt="Arzoo Certificate" class="w-full h-full object-cover">
+
+        <div class="grid grid-cols-3 gap-2 text-center pt-1 border-t border-[#d4af37]/30">
+          <div class="p-2.5 rounded-2xl bg-white/80 border border-amber-200 shadow-sm">
+            <div class="font-royal font-bold text-[#4a121a] text-base">500+</div>
+            <div class="text-[10px] text-stone-600 font-semibold">Brides Styled</div>
+          </div>
+          <div class="p-2.5 rounded-2xl bg-white/80 border border-amber-200 shadow-sm">
+            <div class="font-royal font-bold text-[#4a121a] text-base">100%</div>
+            <div class="text-[10px] text-stone-600 font-semibold">Organic Stain</div>
+          </div>
+          <div class="p-2.5 rounded-2xl bg-white/80 border border-amber-200 shadow-sm">
+            <div class="font-royal font-bold text-[#4a121a] text-base">4.9 ★</div>
+            <div class="text-[10px] text-stone-600 font-semibold">City Rating</div>
+          </div>
         </div>
+
+        <p class="text-[11px] text-stone-600 leading-tight italic text-center pt-1">
+          "Known for fine-line bridal strokes, chemical-free homemade eucalyptus henna cones, and guaranteed dark stains."
+        </p>
       </div>
 
       <!-- Explore Collections Section -->
       <div class="space-y-3">
-        <div>
-          <h3 class="font-royal font-bold text-base text-[#4a121a]">Explore Signature Collections</h3>
-          <p class="text-[11px] text-stone-500">Tap any category to view full high-res photo albums with zoom</p>
+        <div class="flex items-center justify-between">
+          <div>
+            <h3 class="font-royal font-bold text-base text-[#4a121a]">Explore Signature Collections</h3>
+            <p class="text-[11px] text-stone-500">Tap any category to view design albums</p>
+          </div>
         </div>
         <div id="exploreCollectionGrid" class="grid grid-cols-2 gap-3.5"></div>
       </div>
     </div>
 
-    <!-- ==================== TAB 2: SERVICES (3:4 PORTRAIT CARDS) ==================== -->
+    <!-- ==================== TAB 2: SERVICES (3:4 RATIO) ==================== -->
     <div id="tab-services" class="tab-content hidden space-y-4">
       <div class="text-center space-y-1">
         <span class="text-[10px] font-bold uppercase tracking-widest text-[#8e6f15]">Transparent Rates</span>
@@ -113,7 +132,7 @@
       <div id="clientServicesContainer" class="space-y-6"></div>
     </div>
 
-    <!-- ==================== TAB 3: BOOKING & INVOICE SLIP ==================== -->
+    <!-- ==================== TAB 3: BOOKING & SLIP ==================== -->
     <div id="tab-booking" class="tab-content hidden space-y-5">
       <div class="text-center space-y-1">
         <span class="text-[10px] font-bold uppercase tracking-widest text-emerald-800">Instant Verification</span>
@@ -132,7 +151,6 @@
           <input type="tel" id="custPhone" required placeholder="e.g. 9812345678" class="w-full p-3 rounded-xl border border-stone-200 bg-stone-50 text-sm focus:outline-none focus:border-[#4a121a]">
         </div>
 
-        <!-- Custom Calendar Trigger -->
         <div>
           <label class="block font-bold text-stone-700 mb-1">Event Date (Pick from Live Calendar) *</label>
           <div onclick="openCalendarModal(true)" class="w-full p-3 rounded-xl border border-[#d4af37] bg-amber-50/50 flex items-center justify-between cursor-pointer">
@@ -203,7 +221,7 @@
       </div>
     </div>
 
-    <!-- ==================== TAB 4: REVIEWS & STAIN UPLOAD ==================== -->
+    <!-- ==================== TAB 4: REVIEWS ==================== -->
     <div id="tab-reviews" class="tab-content hidden space-y-5">
       <div class="text-center space-y-1">
         <span class="text-[10px] font-bold uppercase tracking-widest text-[#8e6f15]">Ellenabad Community</span>
@@ -245,7 +263,7 @@
       <div id="reviewsFeedContainer" class="space-y-3.5"></div>
     </div>
 
-    <!-- ==================== TAB 5: BRIDAL VOWS & CUSTOM THEMES (REPLACED) ==================== -->
+    <!-- ==================== TAB 5: THEMES ==================== -->
     <div id="tab-custom" class="tab-content hidden space-y-5">
       <div class="text-center space-y-1">
         <span class="text-[10px] font-bold uppercase tracking-widest text-[#8e6f15]">Signature Customizations</span>
@@ -254,7 +272,6 @@
       </div>
 
       <div class="grid grid-cols-1 gap-4 text-xs text-stone-700">
-        <!-- Theme 1 -->
         <div class="p-4 rounded-3xl bg-white royal-border shadow-sm space-y-2">
           <div class="flex items-center gap-2 font-bold text-[#4a121a] text-sm">
             <i data-lucide="user-check" class="w-4 h-4 text-[#8e6f15]"></i>
@@ -265,25 +282,23 @@
           </p>
         </div>
 
-        <!-- Theme 2 -->
         <div class="p-4 rounded-3xl bg-white royal-border shadow-sm space-y-2">
           <div class="flex items-center gap-2 font-bold text-[#4a121a] text-sm">
             <i data-lucide="feather" class="w-4 h-4 text-[#8e6f15]"></i>
-            Wedding Vows & Hashtaag Inscriptions
+            Wedding Vows & Hashtag Inscriptions
           </div>
           <p class="text-stone-600 leading-relaxed">
             Inscribe your personalized wedding dates, couple hashtags, Sanskrit mantras ("सौभाग्यवती भव"), or memorable meeting milestones delicately woven into the arm bands.
           </p>
         </div>
 
-        <!-- Theme 3 -->
         <div class="p-4 rounded-3xl bg-white royal-border shadow-sm space-y-2">
           <div class="flex items-center gap-2 font-bold text-[#4a121a] text-sm">
             <i data-lucide="heart-handshake" class="w-4 h-4 text-[#8e6f15]"></i>
             Traditional Baraat & Doli Processions
           </div>
           <p class="text-stone-600 leading-relaxed">
-            Classic royal royal procession detailing featuring shehnai players, royal elephants, royal horses, and the auspicious bridal doli.
+            Classic royal procession detailing featuring shehnai players, royal elephants, royal horses, and the auspicious bridal doli.
           </p>
         </div>
 
@@ -301,7 +316,7 @@
 
   </main>
 
-  <!-- ==================== ANIMATED CALENDAR (PAST DATES DISABLED) ==================== -->
+  <!-- ==================== ANIMATED CALENDAR ==================== -->
   <div id="calendarModal" class="hidden fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
     <div class="bg-white rounded-3xl max-w-sm w-full p-5 royal-border shadow-2xl space-y-4">
       <div class="flex items-center justify-between pb-2 border-b">
@@ -327,7 +342,7 @@
     </div>
   </div>
 
-  <!-- ==================== CATEGORY GALLERY MODAL WITH HIGH-RES ZOOM ==================== -->
+  <!-- ==================== CATEGORY GALLERY MODAL ==================== -->
   <div id="categoryGalleryModal" class="hidden fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex flex-col p-4 justify-between">
     <div class="flex items-center justify-between text-white pb-3 border-b border-stone-800">
       <div>
@@ -409,37 +424,27 @@
     let viewingCategoryObj = null;
     let currentZoomScale = 1;
 
-    // Fetch initial cloud data from Supabase
     async function fetchSupabaseData() {
-      // 1. Fetch Certificate
-      const { data: certData } = await supabaseClient
-        .from('site_settings')
-        .select('value')
-        .eq('key', 'certificate_url')
-        .single();
-      if (certData && certData.value) {
-        document.getElementById('clientCertDisplay').src = certData.value;
-      }
-
-      // 2. Fetch Services
-      const { data: servicesData } = await supabaseClient
+      // 1. Fetch Services
+      const { data: servicesData, error } = await supabaseClient
         .from('services')
         .select('*')
         .order('created_at', { ascending: true });
-      if (servicesData && servicesData.length > 0) {
+      
+      if (!error && servicesData && servicesData.length > 0) {
         liveServices = servicesData;
         renderExploreCollections();
         renderServicesList();
         renderStyleChips();
       }
 
-      // 3. Fetch Blocked Dates
+      // 2. Fetch Blocked Dates
       const { data: blockedData } = await supabaseClient
         .from('blocked_dates')
         .select('date');
       liveBlockedDates = (blockedData || []).map(b => b.date);
 
-      // 4. Fetch Reviews
+      // 3. Fetch Reviews
       await renderReviewsFeed();
     }
 
@@ -535,7 +540,7 @@
       document.getElementById('zoomImageDisplay').style.transform = `scale(${currentZoomScale})`;
     }
 
-    // Services Tab (Tab 2)
+    // Services Tab (3:4 Ratio)
     function renderServicesList() {
       const container = document.getElementById('clientServicesContainer');
       container.innerHTML = '';
@@ -564,6 +569,7 @@
         }
 
         card.innerHTML = `
+          <!-- 3:4 Aspect Ratio Image Box -->
           <div class="w-full aspect-[3/4] bg-stone-900 relative overflow-hidden">
             <img src="${s.img}" alt="${s.title}" class="w-full h-full object-cover">
             <div class="absolute top-3 left-3 px-3 py-1 rounded-full bg-black/60 text-[#d4af37] text-[10px] font-bold uppercase tracking-wider backdrop-blur-md">
@@ -592,7 +598,7 @@
       switchTab('booking');
     }
 
-    // Booking Tab Chips (Tab 3)
+    // Booking Tab Chips
     function renderStyleChips() {
       const container = document.getElementById('styleChipsContainer');
       container.innerHTML = '';
@@ -662,7 +668,7 @@
       }
     }
 
-    // Calendar Picker with Real-time Blocked Dates
+    // Calendar Picker with Past Dates Disabled
     const todayObj = new Date();
     let calYear = todayObj.getFullYear();
     let calMonth = todayObj.getMonth();
@@ -902,3 +908,5 @@
       await fetchSupabaseData();
     });
   </script>
+</body>
+</html>

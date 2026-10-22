@@ -47,61 +47,60 @@
       </a>
     </header>
 
-    <!-- SECTION 1: UPLOAD CERTIFICATE FROM PHONE GALLERY -->
-    <div class="bg-white p-5 rounded-3xl border border-stone-200 shadow-sm space-y-3">
-      <h3 class="font-bold text-sm text-[#4a121a] flex items-center gap-1.5">
-        <i data-lucide="award" class="w-4 h-4 text-[#8e6f15]"></i> Update Official Ellenabad Certificate
-      </h3>
-      <p class="text-xs text-stone-600">Select certificate photo from your phone gallery:</p>
-      <div class="space-y-2">
-        <input type="file" id="certFileInput" accept="image/*" class="w-full text-xs text-stone-500 file:mr-3 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-bold file:bg-[#4a121a] file:text-[#d4af37]">
-        <button onclick="saveCertFromDevice()" class="px-5 py-2 bg-[#4a121a] text-[#d4af37] font-bold rounded-xl text-xs uppercase tracking-wider shadow">
-          Upload Certificate Now
-        </button>
+    <!-- SECTION 1: EXPLORE TAB ALBUM PHOTOS MANAGER (ADD / DELETE) -->
+    <div class="bg-white p-5 rounded-3xl border border-stone-200 shadow-sm space-y-4">
+      <div class="flex items-center justify-between border-b pb-2">
+        <div>
+          <h3 class="font-bold text-sm text-[#4a121a] flex items-center gap-1.5">
+            <i data-lucide="images" class="w-4 h-4 text-[#8e6f15]"></i> Manage Explore Album Photos
+          </h3>
+          <p class="text-[11px] text-stone-500">Explore tab ke andar ki photos dekhein, delete karein ya nayi dalein</p>
+        </div>
       </div>
-    </div>
 
-    <!-- SECTION 2: ADD PHOTOS TO CATEGORY ALBUMS (DEVICE UPLOAD) -->
-    <div class="bg-white p-5 rounded-3xl border border-stone-200 shadow-sm space-y-3">
-      <h3 class="font-bold text-sm text-[#4a121a] flex items-center gap-1.5">
-        <i data-lucide="image-plus" class="w-4 h-4 text-[#8e6f15]"></i> Add Photos to Explore Albums
-      </h3>
-      <p class="text-xs text-stone-600">Kisi bhi category album mein device gallery se direct photos add karein:</p>
-      <form onsubmit="addPhotoToCategory(event)" class="space-y-3 text-xs">
+      <!-- Select Category to view its photos -->
+      <div>
+        <label class="block text-stone-600 mb-1 text-xs font-bold">Select Category Album to Manage:</label>
+        <select id="albumCategorySelect" onchange="renderCategoryPhotosList()" class="w-full p-2.5 border rounded-xl bg-stone-50 text-xs font-semibold"></select>
+      </div>
+
+      <!-- Add New Photo Form -->
+      <form onsubmit="addPhotoToCategory(event)" class="space-y-2.5 text-xs bg-amber-50/60 p-3.5 rounded-2xl border border-amber-200">
+        <span class="font-bold text-[#4a121a] block text-xs">+ Add New Photo to this Album</span>
         <div>
-          <label class="block text-stone-600 mb-0.5">Select Category Album *</label>
-          <select id="albumCategorySelect" class="w-full p-2.5 border rounded-xl bg-white"></select>
+          <input type="text" id="albumPhotoTitle" required placeholder="Photo Label (e.g. Royal Bridal Palm, Floral Jaal)" class="w-full p-2 border rounded-xl bg-white text-xs">
         </div>
         <div>
-          <label class="block text-stone-600 mb-0.5">Photo Title (e.g. Bangles Arabic, Royal Dulha) *</label>
-          <input type="text" id="albumPhotoTitle" required placeholder="Design label..." class="w-full p-2.5 border rounded-xl">
+          <input type="file" id="albumPhotoFile" accept="image/*" required class="w-full text-xs text-stone-500 file:mr-2 file:py-1 file:px-3 file:rounded-full file:border-0 file:text-[11px] file:font-bold file:bg-[#4a121a] file:text-[#d4af37]">
         </div>
-        <div>
-          <label class="block text-stone-600 mb-0.5">Choose Photo from Device Gallery *</label>
-          <input type="file" id="albumPhotoFile" accept="image/*" required class="w-full text-xs text-stone-500 file:mr-3 file:py-1.5 file:px-3 file:rounded-full file:border-0 file:text-xs file:font-bold file:bg-[#4a121a] file:text-[#d4af37]">
-        </div>
-        <button type="submit" class="w-full py-2.5 bg-[#4a121a] text-[#d4af37] font-bold rounded-xl text-xs uppercase tracking-wider shadow">
+        <button type="submit" id="albumUploadBtn" class="w-full py-2 bg-[#4a121a] text-[#d4af37] font-bold rounded-xl text-xs uppercase tracking-wider shadow">
           Upload to Album
         </button>
       </form>
+
+      <!-- Existing Album Photos Thumbnails with Delete button -->
+      <div class="space-y-2 pt-1">
+        <label class="block text-stone-700 font-bold text-xs">Photos Currently in this Album:</label>
+        <div id="categoryExistingPhotosGrid" class="grid grid-cols-3 gap-2"></div>
+      </div>
     </div>
 
-    <!-- SECTION 3: ADD NEW SERVICE -->
+    <!-- SECTION 2: ADD NEW SERVICE -->
     <div class="bg-white p-5 rounded-3xl border border-stone-200 shadow-sm space-y-3">
       <h3 class="font-bold text-sm text-[#4a121a] flex items-center gap-1.5">
         <i data-lucide="plus-circle" class="w-4 h-4 text-emerald-700"></i> Add New Mehndi Style (Both Hands)
       </h3>
       <form onsubmit="addNewServiceFromPhone(event)" class="space-y-3 text-xs">
         <div>
-          <label class="block text-stone-600 mb-0.5">Service Title *</label>
+          <label class="block text-stone-600 mb-0.5 font-bold">Service Title *</label>
           <input type="text" id="servTitle" required placeholder="e.g. Engagement Floral Henna" class="w-full p-2.5 border rounded-xl">
         </div>
         <div>
-          <label class="block text-stone-600 mb-0.5">Tagline *</label>
+          <label class="block text-stone-600 mb-0.5 font-bold">Tagline *</label>
           <input type="text" id="servTagline" required placeholder="e.g. Minimalist wrist vines" class="w-full p-2.5 border rounded-xl">
         </div>
         <div>
-          <label class="block text-stone-600 mb-0.5">Pick 3:4 Portrait Photo from Gallery *</label>
+          <label class="block text-stone-600 mb-0.5 font-bold">Pick 3:4 Portrait Photo from Gallery *</label>
           <input type="file" id="servPhotoFile" accept="image/*" required class="w-full text-xs text-stone-500 file:mr-3 file:py-1.5 file:px-3 file:rounded-full file:border-0 file:text-xs file:font-bold file:bg-[#4a121a] file:text-[#d4af37]">
         </div>
 
@@ -124,21 +123,21 @@
           </div>
         </div>
 
-        <button type="submit" class="w-full py-2.5 bg-emerald-700 text-white font-bold rounded-xl text-xs uppercase tracking-wider shadow">
+        <button type="submit" id="serviceUploadBtn" class="w-full py-2.5 bg-emerald-700 text-white font-bold rounded-xl text-xs uppercase tracking-wider shadow">
           Save & Publish to Client App
         </button>
       </form>
     </div>
 
-    <!-- SECTION 4: MANAGE LIVE SERVICES & RATES -->
+    <!-- SECTION 3: MANAGE LIVE SERVICES, RATES & MAIN COVER PHOTOS -->
     <div class="bg-white p-5 rounded-3xl border border-stone-200 shadow-sm space-y-3">
       <h3 class="font-bold text-sm text-[#4a121a] flex items-center gap-1.5">
         <i data-lucide="layers" class="w-4 h-4 text-[#8e6f15]"></i> Current Live Services & Rates
       </h3>
-      <div id="adminServicesContainer" class="space-y-3"></div>
+      <div id="adminServicesContainer" class="space-y-4"></div>
     </div>
 
-    <!-- SECTION 5: BLOCK CALENDAR DATES -->
+    <!-- SECTION 4: BLOCK CALENDAR DATES -->
     <div class="bg-white p-5 rounded-3xl border border-stone-200 shadow-sm space-y-3">
       <h3 class="font-bold text-sm text-red-700 flex items-center gap-1.5">
         <i data-lucide="calendar-x" class="w-4 h-4"></i> Block Busy / Booked Dates
@@ -153,14 +152,7 @@
     </div>
   </div>
 
- <script>
-    const DEFAULT_SERVICES = [
-      { id: "serv-arabic", title: "Arabic Mehndi", tagline: "Flowing floral vines, shaded leaves & airy trails", prices: { palm: 300, bangles: 400, mid: 500, elbow: 600 }, is_bridal: false, img: "https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=600&q=80", examples: [{ title: "Arabic Palm Vine", img: "https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=800&q=80" }] },
-      { id: "serv-patch", title: "Patch Mehndi", tagline: "Modern circular mandalas & bold geometric checks", prices: { palm: 400, bangles: 500, mid: 600, elbow: 800 }, is_bridal: false, img: "https://images.unsplash.com/photo-1616683693504-3ea7e9ad6fec?auto=format&fit=crop&w=600&q=80", examples: [{ title: "Symmetric Mandala", img: "https://images.unsplash.com/photo-1616683693504-3ea7e9ad6fec?auto=format&fit=crop&w=800&q=80" }] },
-      { id: "serv-heavy", title: "Heavy Traditional", tagline: "Dense miniature fills, peacocks, jharokha jaal & elephants", prices: { palm: 500, bangles: 600, mid: 800, elbow: 1200 }, is_bridal: false, img: "https://images.unsplash.com/photo-1543163521-1bf539c55dd2?auto=format&fit=crop&w=600&q=80", examples: [{ title: "Heavy Jaal Arm", img: "https://images.unsplash.com/photo-1543163521-1bf539c55dd2?auto=format&fit=crop&w=800&q=80" }] },
-      { id: "serv-bridal", title: "Bridal Bespoke", tagline: "Signature full arms & feet with bride-groom portraits & vows", starting: 2000, note: "Customization charges addon according to groom portrait, barat & love story vows.", is_bridal: true, img: "https://images.unsplash.com/photo-1595085610896-fb31cfd5d4b7?auto=format&fit=crop&w=600&q=80", examples: [{ title: "Bridal Portrait Detailing", img: "https://images.unsplash.com/photo-1595085610896-fb31cfd5d4b7?auto=format&fit=crop&w=800&q=80" }] }
-    ];
-
+  <script>
     let cachedServices = [];
 
     async function checkAdminPin() {
@@ -168,7 +160,6 @@
       if (pin === "1212") {
         document.getElementById('adminLockScreen').classList.add('hidden');
         document.getElementById('adminDashboard').classList.remove('hidden');
-        await syncInitialDatabase();
         await loadAdminServices();
         await loadAdminBlocked();
         lucide.createIcons();
@@ -177,46 +168,18 @@
       }
     }
 
-    // Seed database if empty
-    async function syncInitialDatabase() {
-      const { data, error } = await supabaseClient.from('services').select('id');
-      if (!error && (!data || data.length === 0)) {
-        for (const s of DEFAULT_SERVICES) {
-          await supabaseClient.from('services').insert(s);
-        }
-      }
-    }
-
-    // Save Certificate to Storage & Database
-    async function saveCertFromDevice() {
-      const f = document.getElementById('certFileInput').files[0];
-      if (!f) return alert("Select certificate photo from gallery!");
-
-      const publicUrl = await uploadMediaFile(f, "certificates");
-      if (!publicUrl) return;
-
-      const { error } = await supabaseClient
-        .from('site_settings')
-        .upsert({ key: 'certificate_url', value: publicUrl });
-
-      if (error) {
-        alert("Error saving certificate: " + error.message);
-      } else {
-        alert("Official certificate uploaded & synced with Supabase!");
-        document.getElementById('certFileInput').value = '';
-      }
-    }
-
-    // Load Services from Supabase
     async function loadAdminServices() {
       const container = document.getElementById('adminServicesContainer');
       const select = document.getElementById('albumCategorySelect');
-      container.innerHTML = '<p class="text-xs text-stone-500">Loading live data from Supabase...</p>';
+      container.innerHTML = '<p class="text-xs text-stone-500">Loading services from Supabase...</p>';
 
-      const { data, error } = await supabaseClient.from('services').select('*').order('created_at', { ascending: true });
+      const { data, error } = await supabaseClient
+        .from('services')
+        .select('*')
+        .order('created_at', { ascending: true });
+
       if (error) {
-        console.error(error);
-        container.innerHTML = '<p class="text-xs text-red-600">Failed to load services.</p>';
+        container.innerHTML = `<p class="text-xs text-red-600">Error loading: ${error.message}</p>`;
         return;
       }
 
@@ -225,15 +188,13 @@
       select.innerHTML = '';
 
       cachedServices.forEach((s) => {
-        // Dropdown for album photos
         const opt = document.createElement('option');
         opt.value = s.id;
         opt.innerText = s.title;
         select.appendChild(opt);
 
-        // Service item
         const item = document.createElement('div');
-        item.className = "p-3 rounded-2xl border border-stone-200 bg-stone-50 space-y-2 text-xs";
+        item.className = "p-3.5 rounded-2xl border border-stone-200 bg-stone-50 space-y-3 text-xs";
         
         let inputs = '';
         if (s.is_bridal) {
@@ -250,22 +211,119 @@
         }
 
         item.innerHTML = `
-          <div class="flex justify-between items-center">
-            <strong class="text-[#4a121a]">${s.title}</strong>
-            <div class="flex gap-2">
-              <button onclick="updateServiceRates('${s.id}')" class="px-3 py-1 bg-[#4a121a] text-[#d4af37] font-bold rounded-lg text-xs">Save</button>
+          <div class="flex items-center gap-3">
+            <img src="${s.img}" class="w-12 h-16 object-cover rounded-xl border border-stone-300 shrink-0" alt="Cover">
+            <div class="flex-1">
+              <strong class="text-[#4a121a] text-sm block">${s.title}</strong>
+              <span class="text-[10px] text-stone-500">Explore & Service Cover Image</span>
+            </div>
+            <div class="flex gap-1.5">
+              <button onclick="saveRates('${s.id}')" class="px-2.5 py-1 bg-[#4a121a] text-[#d4af37] font-bold rounded-lg text-xs">Save</button>
               <button onclick="deleteServiceItem('${s.id}')" class="p-1 text-red-600"><i data-lucide="trash-2" class="w-4 h-4"></i></button>
             </div>
           </div>
+
+          <!-- Replace Preview Cover Photo Directly from Phone -->
+          <div class="pt-2 border-t border-stone-200 flex items-center justify-between gap-2">
+            <label class="font-bold text-stone-700 text-[11px]">Change Cover Photo:</label>
+            <input type="file" id="cover-file-${s.id}" accept="image/*" class="text-[10px] w-40 text-stone-500 file:py-1 file:px-2 file:rounded-md file:border-0 file:bg-stone-200 file:text-[10px] file:font-semibold">
+            <button onclick="changeServiceCoverPhoto('${s.id}')" id="btn-cover-${s.id}" class="px-2.5 py-1 bg-amber-700 text-white font-bold rounded-lg text-[10px] shrink-0">Upload</button>
+          </div>
+
           ${inputs}
         `;
         container.appendChild(item);
       });
+
+      renderCategoryPhotosList();
       lucide.createIcons();
     }
 
-    // Update Live Rates in Supabase
-    async function updateServiceRates(id) {
+    // Render Explore Album Photos of selected category
+    function renderCategoryPhotosList() {
+      const select = document.getElementById('albumCategorySelect');
+      const grid = document.getElementById('categoryExistingPhotosGrid');
+      if (!select || !grid) return;
+
+      const catId = select.value;
+      const target = cachedServices.find(s => s.id === catId);
+      grid.innerHTML = '';
+
+      if (!target || !target.examples || target.examples.length === 0) {
+        grid.innerHTML = '<p class="text-stone-400 text-[11px] col-span-3 italic">No extra photos in this album yet.</p>';
+        return;
+      }
+
+      target.examples.forEach((ex, idx) => {
+        const d = document.createElement('div');
+        d.className = 'rounded-xl overflow-hidden border border-stone-200 bg-stone-900 aspect-square relative group';
+        d.innerHTML = `
+          <img src="${ex.img}" class="w-full h-full object-cover">
+          <button onclick="deleteAlbumPhoto('${catId}', ${idx})" title="Delete Photo" class="absolute top-1 right-1 p-1 bg-red-600 text-white rounded-lg text-[10px] shadow">
+            <i data-lucide="trash-2" class="w-3 h-3"></i>
+          </button>
+          <div class="absolute bottom-0 inset-x-0 p-1 bg-black/70 text-white text-[9px] truncate text-center">${ex.title}</div>
+        `;
+        grid.appendChild(d);
+      });
+      lucide.createIcons();
+    }
+
+    // Delete single photo from an album
+    async function deleteAlbumPhoto(catId, photoIndex) {
+      if (!confirm("Are you sure you want to remove this photo from the album?")) return;
+
+      const target = cachedServices.find(s => s.id === catId);
+      if (!target || !target.examples) return;
+
+      target.examples.splice(photoIndex, 1);
+
+      const { error } = await supabaseClient
+        .from('services')
+        .update({ examples: target.examples })
+        .eq('id', catId);
+
+      if (error) {
+        alert("Failed to delete photo: " + error.message);
+      } else {
+        alert("Photo removed from album!");
+        await loadAdminServices();
+      }
+    }
+
+    async function changeServiceCoverPhoto(serviceId) {
+      const fileInput = document.getElementById(`cover-file-${serviceId}`);
+      const btn = document.getElementById(`btn-cover-${serviceId}`);
+      const file = fileInput.files[0];
+
+      if (!file) {
+        alert("Kripya gallery se pehle photo select karein!");
+        return;
+      }
+
+      btn.innerText = "Uploading...";
+      btn.disabled = true;
+
+      const publicUrl = await uploadMediaFile(file, "covers");
+      btn.innerText = "Upload";
+      btn.disabled = false;
+
+      if (!publicUrl) return;
+
+      const { error } = await supabaseClient
+        .from('services')
+        .update({ img: publicUrl })
+        .eq('id', serviceId);
+
+      if (error) {
+        alert("Update fail ho gaya: " + error.message);
+      } else {
+        alert("Cover photo successfully update ho gayi!");
+        await loadAdminServices();
+      }
+    }
+
+    async function saveRates(id) {
       const s = cachedServices.find(i => i.id === id);
       if (!s) return;
 
@@ -282,14 +340,10 @@
       }
 
       const { error } = await supabaseClient.from('services').update(payload).eq('id', id);
-      if (error) {
-        alert("Failed to update rates: " + error.message);
-      } else {
-        alert(`Live rates updated for ${s.title}!`);
-      }
+      if (error) alert("Failed: " + error.message);
+      else alert(`Live rates updated for ${s.title}!`);
     }
 
-    // Delete Service
     async function deleteServiceItem(id) {
       if (confirm("Delete this service permanently from Supabase?")) {
         const { error } = await supabaseClient.from('services').delete().eq('id', id);
@@ -298,14 +352,21 @@
       }
     }
 
-    // Add Photo to Category Album
     async function addPhotoToCategory(e) {
       e.preventDefault();
+      const btn = document.getElementById('albumUploadBtn');
       const catId = document.getElementById('albumCategorySelect').value;
       const title = document.getElementById('albumPhotoTitle').value;
       const f = document.getElementById('albumPhotoFile').files[0];
 
+      if (!f) return alert("Select an image first!");
+      btn.innerText = "Uploading to Cloud...";
+      btn.disabled = true;
+
       const publicUrl = await uploadMediaFile(f, "gallery_albums");
+      btn.innerText = "Upload to Album";
+      btn.disabled = false;
+
       if (!publicUrl) return;
 
       const target = cachedServices.find(s => s.id === catId);
@@ -318,7 +379,7 @@
         .eq('id', catId);
 
       if (error) {
-        alert("Error updating album: " + error.message);
+        alert("Database update failed: " + error.message);
       } else {
         alert(`Photo added to "${target.title}" album!`);
         document.getElementById('albumPhotoTitle').value = '';
@@ -327,9 +388,9 @@
       }
     }
 
-    // Add New Mehndi Service with Device Photo
     async function addNewServiceFromPhone(e) {
       e.preventDefault();
+      const btn = document.getElementById('serviceUploadBtn');
       const title = document.getElementById('servTitle').value;
       const tagline = document.getElementById('servTagline').value;
       const f = document.getElementById('servPhotoFile').files[0];
@@ -338,7 +399,14 @@
       const mid = Number(document.getElementById('servMid').value);
       const elbow = Number(document.getElementById('servElbow').value);
 
+      if (!f) return alert("Select an image!");
+      btn.innerText = "Uploading 3:4 Image...";
+      btn.disabled = true;
+
       const publicUrl = await uploadMediaFile(f, "services");
+      btn.innerText = "Save & Publish to Client App";
+      btn.disabled = false;
+
       if (!publicUrl) return;
 
       const newId = "serv-" + Date.now();
@@ -354,9 +422,9 @@
 
       const { error } = await supabaseClient.from('services').insert(newService);
       if (error) {
-        alert("Error creating service: " + error.message);
+        alert("Error saving: " + error.message);
       } else {
-        alert(`Service "${title}" added to database!`);
+        alert(`Service "${title}" published!`);
         document.getElementById('servTitle').value = '';
         document.getElementById('servTagline').value = '';
         document.getElementById('servPhotoFile').value = '';
@@ -364,10 +432,9 @@
       }
     }
 
-    // Blocked Dates in Supabase
     async function loadAdminBlocked() {
       const container = document.getElementById('adminBlockedDatesGrid');
-      container.innerHTML = '<span class="text-xs text-stone-400">Loading dates...</span>';
+      container.innerHTML = '<span class="text-xs text-stone-400">Loading...</span>';
 
       const { data, error } = await supabaseClient.from('blocked_dates').select('*');
       if (error) return;
@@ -383,12 +450,11 @@
 
     async function blockDate() {
       const d = document.getElementById('adminBlockDate').value;
-      if (!d) return alert("Select a date to block!");
+      if (!d) return alert("Select date!");
 
       const { error } = await supabaseClient.from('blocked_dates').insert({ date: d });
-      if (error) {
-        alert("Date already blocked or error: " + error.message);
-      } else {
+      if (error) alert("Already blocked or error: " + error.message);
+      else {
         document.getElementById('adminBlockDate').value = '';
         await loadAdminBlocked();
       }
@@ -404,3 +470,5 @@
       lucide.createIcons();
     });
   </script>
+</body>
+</html>
